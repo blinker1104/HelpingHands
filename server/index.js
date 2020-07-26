@@ -17,6 +17,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(express.static('public'))
 
+app.use('/login', express.static('public/login'));
+app.use('/registration', express.static('public/login/registration.html'));
 app.use('/registrationCompleted', express.static('public/login/registerComplete.html'))
 app.use('/registrationFailed', express.static('public/login/registerFail.html'))
 

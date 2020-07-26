@@ -6,7 +6,7 @@ const NameCheck = (name, callback) => {
   console.log(' Checking whether name is available to use');
 
   User.findOne({ username : name }, (err, data) => {
-    console.log(`name:${name} data:${data}`);
+    // console.log(`name:${name} data:${data}`);
     const status = (data === null);
     callback(err, {status:status, data:data});
   });
@@ -36,7 +36,7 @@ const LoginProcess = (loginAttempt, callback) => {
 
   User.findOne({ username : loginAttempt.username }, (err, data) => {
     if (data.password !== loginAttempt.password) {
-      console.log(`LOGIN FAILED: ${loginAttempt.username} ${loginAttempt.password}`);
+      // console.log(`LOGIN FAILED: ${loginAttempt.username} ${loginAttempt.password}`);
       callback(err, {status:'fail', data:data});
     } else {
       callback(err, {status:'success', data:data});

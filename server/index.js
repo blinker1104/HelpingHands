@@ -15,8 +15,10 @@ const port = 3000
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-// app.use(express.static('public'))
+app.use(express.static('public'))
 
+app.use('/registrationCompleted', express.static('public/login/registerComplete.html'))
+app.use('/registrationFailed', express.static('public/login/registerFail.html'))
 
 //// ROUTES
 
@@ -33,8 +35,8 @@ app.post('/SampleData', (req, res) => {
   db.userFuntions.NewAccount( sampleUser, (err, result) => {
 
     if (err) { res.status(400).send(result.code); }
-    else if (res.status) { res.status(400).send(result.code); }
-    else { res.send('SampleCreated'); }
+    else if (res.status) { res.status(400).redirect('/registrationFailed'); }
+    else { res.redirect('/registrationCompleted'); }
 
 
     //Redirect

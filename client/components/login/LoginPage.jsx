@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import LoginForm from './LoginForm.jsx';
 import RegisterForm from './RegisterForm.jsx';
+import RegisterComplete from './RegisterComplete.jsx';
 
 
 class LoginPage extends React.Component {
@@ -17,10 +18,17 @@ class LoginPage extends React.Component {
 
   }
 
-  changeView() {
-    this.setState({
-      view: this.state.view !== 'LoginForm' ? 'LoginForm' : 'RegisterForm'
-    });
+  changeView(redirect) {
+    console.log(redirect);
+    if (redirect) {
+      if(redirect === 'RegisterComplete') {
+        this.setState({view:'RegisterComplete'})
+      }
+    } else {
+      this.setState({
+        view: this.state.view !== 'LoginForm' ? 'LoginForm' : 'RegisterForm'
+      });
+    }
   }
 
 
@@ -32,6 +40,8 @@ class LoginPage extends React.Component {
           <LoginForm changeView={this.changeView.bind(this)} /> : ''}
         {(view === 'RegisterForm') ?
           <RegisterForm changeView={this.changeView.bind(this)}/> : ''}
+        {(view === 'RegisterComplete') ?
+          <RegisterComplete changeView={this.changeView.bind(this)}/> : ''}
 
       </div>
     );

@@ -32,14 +32,14 @@ const NewAccount = (newUser, callback) => {
 };
 
 const LoginProcess = (loginAttempt, callback) => {
-  console.log(' Checking User Credential ');
+  // console.log(' Checking User Credential :', loginAttempt);
 
   User.findOne({ username : loginAttempt.username }, (err, data) => {
     if (data.password !== loginAttempt.password) {
       // console.log(`LOGIN FAILED: ${loginAttempt.username} ${loginAttempt.password}`);
-      callback(err, {status:'fail', data:data});
+      callback(err, {status:false, data:data});
     } else {
-      callback(err, {status:'success', data:data});
+      callback(err, {status:true, data:data});
     }
   });
 };

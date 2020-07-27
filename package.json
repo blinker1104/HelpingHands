@@ -1,0 +1,36 @@
+{
+  "name": "helpinghand",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "react-dev": "webpack -d --watch",
+    "start": "node ./server/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express-session": "^1.17.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jquery": "^3.3.1",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.4",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "universal-cookie": "^4.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.2",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

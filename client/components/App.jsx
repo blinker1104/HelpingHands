@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 
-
+import RequestList from './request/RequestList.jsx';
 
 
 
@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view:'start',
+      view:'Select from Menu ',
       loggedin:false,
       username:''
     };
@@ -48,12 +48,18 @@ class App extends React.Component {
 
     return (
       <div>
-        { (!this.state.loggedin) ?
-          this.state.view : `Welcome user "${this.state.username}"`}
+        <div>
+          <h4> Menu </h4>
+          { (!this.state.loggedin) ?
+            this.state.view : `Logged in as User "${this.state.username}"`}
 
-        { (!this.state.loggedin) ?
-         this.loginButton() : this.logoutButton() }
-
+          { (!this.state.loggedin) ?
+            this.loginButton() : this.logoutButton() }
+        </div>
+        <div>
+          <h4> Post </h4>
+          <RequestList />
+        </div>
       </div>
     );
   }

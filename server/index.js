@@ -19,14 +19,12 @@ app.use(session({
 }));
 
 app.use(function (req, res, next) {
-
   //Setup Session Info
   if (req.session.loggedin === undefined || req.session.loggedin === false)  {
     req.session.loggedin = false;
     req.session.username = undefined;
     req.session.id = undefined;
   }
-
   next();
 })
 
@@ -36,15 +34,7 @@ app.use(cors());
 app.use('/login', express.static('public/login'));
 
 //// ROUTES
-
 app.use(express.static('public'))
-
-// app.get('/', (req, res) => {
-//   console.log(req.session);
-//   if (req.session.loggedin!== true) {
-//     res.send(req.session.username);
-//   }
-// });
 
 app.get('/userStatus', (req, res) => {
   if (req.session.loggedin) {
@@ -54,10 +44,33 @@ app.get('/userStatus', (req, res) => {
 });
 
 
+
+
+app.get('/getAllRequests', (req, res) => {
+  db.request.getAllRequest((err, result) => {
+    res.send(result);
+    res.end();
+  });
+});
+
+
+app.post('/newRequest', (req, res) => {
+  const newReq = req.body.newForm;
+  db.request.newRequest( newReq, (err, result) => {
+    console.log(result);
+    res.status((result.status) ? 201 : 400);
+    res.send(result);
+    res.end();
+  });
+});
+
+
+
+
 app.post('/registrationFormSubmit', (req, res) => {
   const newUser =  req.body.newForm;
 
-  db.userFuntions.NewAccount( newUser, (err, result) => {
+  db.user.NewAccount( newUser, (err, result) => {
     console.log(result);
     if (err) { res.status(400); }
     else if (result.status) {
@@ -70,7 +83,7 @@ app.post('/registrationFormSubmit', (req, res) => {
 app.post('/loginProcess', (req, res) => {
   const loginAttempt =  req.body.newForm;
 
-  db.userFuntions.LoginProcess( loginAttempt, (err, result) => {
+  db.user.LoginProcess( loginAttempt, (err, result) => {
     if (err) { res.status(400).send(result); }
     else if (result.status) {
       let hour = 3600000;
@@ -105,7 +118,7 @@ app.post('/logoutProcess', (req, res) => {
 
 
 app.get('/checkName/:username', (req, res) => {
-  db.userFuntions.NameCheck(req.params.username, (err, result) => {
+  db.user.NameCheck(req.params.username, (err, result) => {
 
     if (!result.status) {
       res.status(400).send('Match found');
@@ -148,7 +161,7 @@ app.post('/SampleData', (req, res) => {
     email: 'hello@email.com'
   };
 
-  db.userFuntions.NewAccount( sampleUser, (err, result) => {
+  db.user.NewAccount( sampleUser, (err, result) => {
 
     if (err) { res.status(400).send(result.code); }
     else if (res.status) { res.status(400).redirect('/registrationFailed'); }

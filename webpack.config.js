@@ -21,9 +21,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader'
+          { loader: 'css-loader',
+            options: {
+              modules: true
+            }
             // query: {
             //   modules: true,
             //   localIdentName: '[name]__[local]___[hash:base64:5]'

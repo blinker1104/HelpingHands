@@ -13,8 +13,9 @@ db.once('open', () => {
 });
 
 
-db.userFuntions = require('./controllers/user.js');
-// sdb.userFuntions = require('./controllers/user.js');
+db.user = require('./controllers/user.js');
+db.request = require('./controllers/request.js');
+// sdb.user = require('./controllers/user.js');
 
 
 module.exports = db;

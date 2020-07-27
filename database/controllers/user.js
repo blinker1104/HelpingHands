@@ -22,7 +22,7 @@ const NewAccount = (newUser, callback) => {
       newAccount.save( (err, result) => {
         if(err) { console.error(err); }
         console.log('NEW ACCOUNT CREATED SUCCESSFULLY');
-        callback(err, {status : (err === undefined), code: 'no same username'});
+        callback(err, {status : true, code: 'no same username'});
       });
     } else {
       console.log('Cannot CREATE NEW USER - NAME ALREADY EXISTS');

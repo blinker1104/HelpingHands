@@ -8,7 +8,8 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      warningMsg:''
      };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,11 +29,23 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(event) {
+    const loginInfo = {
+      username: this.state.username,
+      password: this.state.password
+    }
     axios.post('/loginProcess', { newForm: this.state })
       .then( (res) => {
         console.log('Login Completed', res);
-        // this.props.changeView();
+
+        if (res.data === 'success') {
+          this.state.warningMsg = '';
+          window.location = '/';
+        }
+      })
+      .catch( (res) => {
+        this.setState({warningMsg : 'Login Attemp Failed' });
       });
+    event.preventDefault();
   }
 
 
@@ -42,14 +55,19 @@ class LoginForm extends React.Component {
       <div>
         <h3>Login Page</h3>
         <form  onSubmit={this.handleSubmit}>
-          <ul class="form-style-1">
+          <ul className="form-style-1">
             <li>
-              <label> Username <span class="required">*</span></label>
-              <input  type="text" name="username" class="field-long" placeholder="Username" value={this.state.username} onChange={this.handleChange}></input>
+              <label> Username <span className="required">*</span></label>
+              <input  type="text" name="username" className="field-long" placeholder="Username" value={this.state.username} onChange={this.handleChange}></input>
             </li>
             <li>
-              <label> Password <span class="required">*</span></label>
-              <input type="text" name="password" class="field-long" placeholder="Password"  value={this.state.password} onChange={this.handleChange}></input>
+              <label> Password <span className="required">*</span></label>
+              <input type="text" name="password" className="field-long" placeholder="Password"  value={this.state.password} onChange={this.handleChange}></input>
+            </li>
+            <li>
+              <p style={{color:"red"}}>
+                {this.state.warningMsg}
+              </p>
             </li>
             <li>
               <button>Login</button>

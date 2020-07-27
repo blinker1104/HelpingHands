@@ -17,71 +17,81 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+
 app.use(function (req, res, next) {
-  if (!req.session.loggedin) {
+
+  //Setup Session Info
+  if (req.session.loggedin === undefined || req.session.loggedin === false)  {
     req.session.loggedin = false;
     req.session.username = undefined;
+    req.session.id = undefined;
   }
+
   next();
 })
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-app.use(express.static('public'))
-
 app.use('/login', express.static('public/login'));
-app.use('/registration', express.static('public/login/registration.html'));
-app.use('/registrationCompleted', express.static('public/login/registerComplete.html'))
-app.use('/registrationFailed', express.static('public/login/registerFail.html'))
 
 //// ROUTES
 
-app.get('/home', (req, res) => {
+app.use(express.static('public'))
 
+// app.get('/', (req, res) => {
+//   console.log(req.session);
+//   if (req.session.loggedin!== true) {
+//     res.send(req.session.username);
+//   }
+// });
+
+app.get('/userStatus', (req, res) => {
   if (req.session.loggedin) {
-    console.log('Welcome back, ' + req.session.username + '!');
-		res.send('Welcome back, ' + req.session.username + '!');
-	} else {
-		res.send('Please login to view this page!');
-	}
-	res.end();
+    res.send(req.session);
+  }
+  res.end();
 });
-
-
-
 
 
 app.post('/registrationFormSubmit', (req, res) => {
   const newUser =  req.body.newForm;
 
   db.userFuntions.NewAccount( newUser, (err, result) => {
-    if (err) { res.status(400).send(result.code); }
-    else if (res.status) { res.status(400).send('Registration Failed'); }
-    else { res.send('Registration Complete'); }
+    console.log(result);
+    if (err) { res.status(400); }
+    else if (result.status) {
+      res.status(201);
+    } else { res.status(400); }
     res.end();
   });
 })
 
 app.post('/loginProcess', (req, res) => {
-  const loginAttept =  req.body.newForm;
+  const loginAttempt =  req.body.newForm;
 
-  db.userFuntions.LoginProcess( loginAttept, (err, result) => {
+  db.userFuntions.LoginProcess( loginAttempt, (err, result) => {
     if (err) { res.status(400).send(result); }
-    else if (res.status) {
+    else if (result.status) {
       let hour = 3600000;
       req.session.cookie.expires = new Date(Date.now() + hour);
       req.session.cookie.maxAge = hour;
+      req.session.cookie.username = loginAttempt.username;
 
       req.session.loggedin = true;
-      req.session.username = loginAttept.username;
-      res.redirect('/home');
-    } else { res.status(400).send('Registration Complete'); }
+      req.session.username = loginAttempt.username;
+      console.log('login success: ', loginAttempt.username);
+      res.status(200).send('success');
+      // res.redirect('/home');
+    } else {
+      console.log('login failed ', loginAttempt.username);
+      res.status(400).send('fail');
+    }
     res.end();
-  } );
+  });
 })
 
-app.get('/logoutProcess', (req, res) => {
+app.post('/logoutProcess', (req, res) => {
   if (req.session.loggedin) {
     req.session.loggedin = false;
     req.session.username = undefined;
@@ -108,11 +118,28 @@ app.get('/checkName/:username', (req, res) => {
 })
 
 
+
+
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
 
 
 /*
+
+
+
+
+app.get('/home', (req, res) => {
+
+  if (req.session.loggedin) {
+    console.log('Welcome back, ' + req.session.username + '!');
+		res.send('Welcome back, ' + req.session.username + '!');
+	} else {
+		res.send('Please login to view this page!');
+	}
+	res.end();
+});
+
 
 app.post('/SampleData', (req, res) => {
   const sampleUser = {

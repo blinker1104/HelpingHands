@@ -55,18 +55,18 @@ class RegisterForm extends React.Component {
       <div>
       <h3>Registration</h3>
         <form  onSubmit={this.handleSubmit}>
-          <ul class="form-style-1">
+          <ul className="form-style-1">
             <li>
-              <label> Username <span class="required">*</span></label>
-              <input  type="text" name="username" class="field-long" placeholder="Username" value={this.state.username} onChange={this.handleChange}></input>
+              <label> Username <span className="required">*</span></label>
+              <input  type="text" name="username" className="field-long" placeholder="Username" value={this.state.username} onChange={this.handleChange}></input>
             </li>
             <li>
-              <label> Password <span class="required">*</span></label>
-              <input type="text" name="password" class="field-long" placeholder="Password"  value={this.state.password} onChange={this.handleChange}></input>
+              <label> Password <span className="required">*</span></label>
+              <input type="text" name="password" className="field-long" placeholder="Password"  value={this.state.password} onChange={this.handleChange}></input>
             </li>
             <li>
-              <label> E-mail <span class="required">*</span></label>
-              <input type="email"  name="email" class="field-long" value={this.state.email} onChange={this.handleChange} ></input>
+              <label> E-mail <span className="required">*</span></label>
+              <input type="email"  name="email" className="field-long" value={this.state.email} onChange={this.handleChange} ></input>
             </li>
             <li>
               <button >Register</button>
@@ -74,11 +74,10 @@ class RegisterForm extends React.Component {
           </ul>
         </form>
         <p>
-            If you have an account, <br/>
-            please login <br/>
-            <button onClick={()=>changeView()}>Go to Login</button>
-
-          </p>
+          If you have an account, <br/>
+          please login <br/>
+          <button onClick={()=>changeView()}>Go to Login</button>
+        </p>
       </div>
     );
   }

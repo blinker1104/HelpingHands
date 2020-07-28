@@ -6,6 +6,7 @@ const requestSchema = mongoose.Schema({
   body: String,
   contact: String,
   location: String,
+  radius: Number,
   date: { type: Date, default: Date.now }
 });
 

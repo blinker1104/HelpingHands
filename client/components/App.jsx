@@ -13,7 +13,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view:'Select from Menu ',
       loggedin:false,
       username:''
     };
@@ -51,15 +50,12 @@ class App extends React.Component {
         <div>
           <h4> Menu </h4>
           { (!this.state.loggedin) ?
-            this.state.view : `Logged in as User "${this.state.username}"`}
+            "Please log-in to use full features" : `Logged in as User "${this.state.username}"`}
 
           { (!this.state.loggedin) ?
             this.loginButton() : this.logoutButton() }
         </div>
-        <div>
-          <h4> Post </h4>
-          <RequestList />
-        </div>
+        <RequestList userInfo={this.state}/>
       </div>
     );
   }

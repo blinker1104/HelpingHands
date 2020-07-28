@@ -45,6 +45,10 @@
   color: inherit;
   fill: currentColor;
   vertical-align: middle;
+
+align-items: center;
+justify-content: center;
+
 }
 
 
@@ -85,7 +89,20 @@
   font-style: italic;
 }
 
+
+.postbutton_flex_content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+
+
 .menuButton_post {
+
   width:120px;
   height:60px;
   background-size: 100% 100%;

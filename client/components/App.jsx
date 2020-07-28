@@ -53,9 +53,9 @@ class App extends React.Component {
           <img className={styles.bannerImage} src="https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_074052399.png" alt="image"/>
         </div>
 
-        <div className={styles.Menu_content}>
+        <div className={styles.Menu_flex_box}>
           {/* <h4> Menu </h4> */}
-          <div className={styles.flex_box}>
+          <div className={styles.Menu_content}>
             <div className={styles.flex_content}>
               <button className={styles.menuButton_request}></button>
             </div>
@@ -67,6 +67,8 @@ class App extends React.Component {
               <button className={styles.menuButton_account}></button>
             </div>
 
+          </div>
+          <div className={styles.Menu_content} >
 
             <div className={styles.flex_empty}>
               <div className={styles.menuButton_empty}>

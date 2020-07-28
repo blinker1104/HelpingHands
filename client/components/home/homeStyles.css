@@ -40,9 +40,16 @@
   vertical-align: middle;
 }
 
+.Menu_flex_box{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .Menu_content{
-  padding: 10px;
+  width: 360px;
+  padding: 0px 10px;
   display: inline-flex;
   color: inherit;
   fill: currentColor;
@@ -128,13 +135,14 @@
   vertical-align: middle;
   /* min-width:120px; */
   height:60px;
+  flex-grow: 1;
 }
 
 .menuButton_empty {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  flex-grow: 1;
   border-width: 2px;
   border-style: solid;
   background-size: 100% 100%;

@@ -93,7 +93,7 @@ class NewRequestForm extends React.Component {
 
   render () {
     return (
-      <div  className={styles.flex_content}>
+      <div  className={styles.postbutton_flex_content}>
         { (this.props.userInfo.loggedin) ?
           <button className={styles.menuButton_post} onClick={this.handleOpenModal}></button> : ''
         }

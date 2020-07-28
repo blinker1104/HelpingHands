@@ -97,6 +97,20 @@ justify-content: center;
   color: inherit;
   fill: currentColor;
   vertical-align: middle;
+  width:360px;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+
+
+.menuButton_post {
+
+  height:80px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_01.jpg");
 }
 
 
@@ -108,4 +122,43 @@ justify-content: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_01.jpg");
+}
+
+
+
+.menuButton_empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border-width: 2px;
+  border-style: solid;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_072730404.jpg");
+  vertical-align: middle;
+
+}
+
+@font-face {
+  font-family: 'MenuFont';
+
+  font-weight: bold;
+  src: url('https://helpinghands.s3.us-east-2.amazonaws.com/Eras_Bold_ITC.ttf');
+}
+
+
+.userDisplay {
+  color:white;
+  font-family: 'MenuFont';
+  font-size: 24px;
+
+  -webkit-text-stroke: 1px black;
+  padding: 0px 20px;
+}
+
+
+
+.span_NoInfo {
+  font: italic small-caps bold;
 }

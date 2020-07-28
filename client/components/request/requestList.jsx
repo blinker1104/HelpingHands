@@ -27,7 +27,7 @@ class NewRequestForm extends React.Component {
       body:'',
       contact:'',
       location:'',
-      radius:''
+      radius:'1000'
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -95,9 +95,14 @@ class NewRequestForm extends React.Component {
     return (
       <div  className={styles.postbutton_flex_content}>
         { (this.props.userInfo.loggedin) ?
-          <button className={styles.menuButton_post} onClick={this.handleOpenModal}></button> : ''
-        }
+          <div className={styles.menuButton_empty} onClick={this.handleOpenModal}>
+            <span className={styles.userDisplay}>
+              New Post
+            </span>
+          </div>
 
+          : ''
+        }
 
 
         <ReactModal
@@ -249,28 +254,35 @@ const RequestView = (props=[]) => {
         </div>
 
 
+        { (reqInfo.radius === 1000) ?
+          <div className="flex_box">
+            <label> <h3> Remote Help is Acceptable </h3> </label>
+          </div> :
 
-        <div className="flex_box">
-          <label> <h3> Location (Optional) </h3> </label>
-        </div>
-        <div className="flex_box">
-          <p>
-            { (reqInfo.location) ? reqInfo.location : <span className={styles.span_NoInfo}>Info Unavailable</span>}
-          </p>
-        </div>
+          <div>
+          <div className="flex_box">
+            <label> <h3> Location (Optional)  </h3> </label>
+          </div>
+          <div className="flex_box">
+            <p>
+              { (reqInfo.location) ? reqInfo.location : <span className={styles.span_NoInfo}>Info Unavailable</span>}
+            </p>
+          </div>
 
-        <div className="flex_box">
-          <label> <h3> Searchable radius (approx. area) </h3> </label>
-        </div>
+          <div className="flex_box">
+            <label> <h3> Searchable radius (approx. area) </h3> </label>
+          </div>
 
-        <div className="flex_box">
-          <p>
-            { (reqInfo.radius === 0) ? "Specific Location Only" : "" }
-            { (reqInfo.radius === 1000) ? "remote available" : "" }
-            { (reqInfo.radius > 0 && reqInfo.radius < 1000) ? `within ${reqInfo.radius} miles` : "" }
-            { (!reqInfo.radius) ? <span className={styles.span_NoInfo}>Info Unavailable</span> : "" }
-          </p>
-        </div>
+          <div className="flex_box">
+            <p>
+              { (reqInfo.radius === 0) ? "Specific Location Only" : "" }
+
+              { (reqInfo.radius > 0 && reqInfo.radius < 1000) ? `within ${reqInfo.radius} miles` : "" }
+              { (!reqInfo.radius) ? <span className={styles.span_NoInfo}>Info Unavailable</span> : "" }
+            </p>
+          </div>
+          </div>
+        }
       </div>
     </div>
   );
@@ -330,24 +342,34 @@ class RequestList extends React.Component {
   }
 
   render() {
+
     return (
-      <div id='RequestPosts'>
-        {/* <h4> Post </h4> */}
-        {/* <button onClick={()=>console.log('new post')}> New Post </button> */}
-        <NewRequestForm  userInfo = {this.props.userInfo} updateFunc={this.updateList} />
-        { (this.state._isLoaded) ? <RequestItem className={styles.post_box} requests={this.state.requests}  onRequestClick ={this.displayRequest}/> : 'Loading...'}
+
+        <div id='RequestPosts'>
+          {/* <h4> Post </h4> */}
+          {/* <button onClick={()=>console.log('new post')}> New Post </button> */}
+          <NewRequestForm  userInfo = {this.props.userInfo} updateFunc={this.updateList} />
+          {(this.state._isLoaded && this.state.requests.length === 0) ?
+            <div className={styles.post_box}>
+              No Requests Available this time
+            </div> :
+
+            <div>
+              {(this.state._isLoaded) ? <RequestItem className={styles.post_box} requests={this.state.requests}  onRequestClick ={this.displayRequest}/> : 'Loading...'}
 
 
-        <ReactModal
-          isOpen={this.state.showModal}
-          contentLabel="Display Request Post">
+              <ReactModal
+                isOpen={this.state.showModal}
+                contentLabel="Display Request Post">
 
-          <RequestView reqInfo={this.state.displayRequest} />
+                <RequestView reqInfo={this.state.displayRequest} />
 
-          <button onClick={this.handleCloseModal}>Close</button>
+                <button onClick={this.handleCloseModal}>Close</button>
 
-        </ReactModal>
-      </div>
+              </ReactModal>
+            </div>
+          }
+        </div>
     );
   }
 }

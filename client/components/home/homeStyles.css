@@ -1,5 +1,7 @@
 .body {
   background-color: #3984cd;
+  min-height:500px;
+  height:100%;
 }
 
 .flex_box{

@@ -1,10 +1,11 @@
 import React from 'react';
 
-const RegisterComplete = ({ }) => {
+const RegisterComplete = ({ changeView}) => {
+  console.log(changeView);
   return (
     <div>
       <h3>Registration Completed</h3>
-      <button onClick={() => {window.location = '/';}} id="myButton" className="float-left submit-button" >Go back to Home</button>
+      <button onClick={()=>changeView()} id="myButton" className="float-left submit-button" >Go back to Home</button>
     </div>
   );
 };

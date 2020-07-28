@@ -1,0 +1,150 @@
+.post_box {
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
+}
+
+
+
+
+.flex_box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 90%;
+}
+
+.flex_content_full{
+  width: 100%;
+}
+
+.flex_form{
+  width: 80%;
+}
+
+.flex_box_full{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.flex_stack{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex_content{
+  display: inline-flex;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: middle;
+
+align-items: center;
+justify-content: center;
+
+}
+
+
+
+.textarea_simple {
+  width: 90%;
+  height: 150px;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.textarea_clean {
+  width: 90%;
+  height: 150px;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: none;
+}
+
+.textarea_small {
+  width: 90%;
+  height: 80px;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+
+
+.span_NoInfo {
+  font: inherit;
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+.postbutton_flex_content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+/*
+
+.menuButton_post {
+
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_01.jpg");
+}
+
+
+
+.menuButton_empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border-width: 2px;
+  border-style: solid;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_072730404.jpg");
+  vertical-align: middle;
+
+}
+
+@font-face {
+  font-family: 'MenuFont';
+
+  font-weight: bold;
+  src: url('https://helpinghands.s3.us-east-2.amazonaws.com/Eras_Bold_ITC.ttf');
+}
+
+
+.userDisplay {
+  color:white;
+  font-family: 'MenuFont';
+  font-size: 24px;
+
+  -webkit-text-stroke: 1px black;
+  padding: 0px 20px;
+}
+
+
+
+.span_NoInfo {
+  font: italic small-caps bold;
+} */

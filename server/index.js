@@ -72,10 +72,11 @@ app.post('/registrationFormSubmit', (req, res) => {
 
   db.user.NewAccount( newUser, (err, result) => {
     console.log(result);
-    if (err) { res.status(400); }
+    if (err) { res.statusMessage = result.code; res.status(400); }
     else if (result.status) {
       res.status(201);
-    } else { res.status(400); }
+    } else { res.statusMessage = result.code; res.status(400); }
+    res.send(result);
     res.end();
   });
 })

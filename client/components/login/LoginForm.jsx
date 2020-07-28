@@ -53,7 +53,7 @@ class LoginForm extends React.Component {
 
     return (
       <div>
-        <h3>Login Page</h3>
+        <h3> Login Page </h3>
         <form  onSubmit={this.handleSubmit}>
           <ul className="form-style-1">
             <li>

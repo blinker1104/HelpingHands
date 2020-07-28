@@ -8,7 +8,8 @@ class RegisterForm extends React.Component {
     this.state ={
       username: '',
       password: '',
-      email: ''
+      email: '',
+      warningMsg: ''
     };
     this.startRegistration = this.startRegistration.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -42,12 +43,21 @@ class RegisterForm extends React.Component {
     axios.post('/registrationFormSubmit', { newForm: this.state })
       .then( (res) => {
         console.log(res);
-        // if(res === '')
-        this.props.changeView();
+        if (res.data.status) {
+          this.state.warningMsg = '';
+          console.log('Register completed')
+          this.props.changeView('RegisterComplete');
+        } else {
+          this.setState({warningMsg :`Registration failed - Try again`});
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          warningMsg :`Registration failed: ${err}`
+        });
       });
 
     event.preventDefault();
-    this.props.changeView('RegisterComplete');
   }
 
   render() {
@@ -69,6 +79,11 @@ class RegisterForm extends React.Component {
               <input type="email"  name="email" className="field-long" value={this.state.email} onChange={this.handleChange} ></input>
             </li>
             <li>
+              <p style={{color:"red"}}>
+                {this.state.warningMsg}
+              </p>
+            </li>
+            <li>
               <button >Register</button>
             </li>
           </ul>
@@ -76,7 +91,7 @@ class RegisterForm extends React.Component {
         <p>
           If you have an account, <br/>
           please login <br/>
-          <button onClick={()=>changeView()}>Go to Login</button>
+          <button onClick={()=> this.props.changeView()}>Go to Login</button>
         </p>
       </div>
     );

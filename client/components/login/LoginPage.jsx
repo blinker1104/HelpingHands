@@ -32,8 +32,9 @@ class LoginPage extends React.Component {
 
   render() {
     const view = this.state.view;
+    console.log(view);
     return (
-      <div>
+      <div >
         {(view === 'LoginForm') ?
           <LoginForm changeView={this.changeView.bind(this)} /> : ''}
         {(view === 'RegisterForm') ?

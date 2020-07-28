@@ -5,6 +5,7 @@ const ReqModel = require('../models/request.js');
 const getAllRequest = (callback) => {
   ReqModel.find({}, (err, requests) => {
     const status = !(requests === null);
+    console.log('All Requests found');
     callback(err, {status, requests});
   });
 };

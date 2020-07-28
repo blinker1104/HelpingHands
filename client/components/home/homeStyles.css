@@ -1,0 +1,114 @@
+
+
+.flex_box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 90%;
+}
+
+.flex_content_full{
+  width: 100%;
+}
+
+.flex_form{
+  width: 80%;
+}
+
+.flex_box_full{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.flex_stack{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex_content{
+
+  display: inline-flex;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+
+.Menu_content{
+  padding: 10px;
+  display: inline-flex;
+  color: inherit;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+.banner {
+  width: 100%;
+  display: inline-block;
+  color: inherit;
+  fill: currentColor;
+  text-align: center;
+  /* background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_011343825.jpg"); */
+}
+
+
+.bannerImage {
+  width: 100%;
+  max-width: 700px;
+  /* background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_011343825.jpg"); */
+}
+
+.menuButton_post {
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_01.jpg");
+}
+
+.menuButton_account {
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_02.jpg");
+}
+
+
+.menuButton_request {
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_03.jpg");
+}
+
+
+.menuButton_offer {
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_04.jpg");
+}
+
+
+.menuButton_request {
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_03.jpg");
+
+}
+
+
+
+.span_NoInfo {
+  font: italic small-caps bold;
+}

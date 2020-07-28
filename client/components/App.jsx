@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import RequestList from './request/RequestList.jsx';
 
+import styles from './home/homeStyles.css';
 
 
 
@@ -35,25 +36,46 @@ class App extends React.Component {
 
 
   loginButton () {
-    return (<button onClick={()=>{location.href = '/login';}} className="float-left submit-button" >Login / Register</button>);
+    return (<button onClick={()=>{location.href = '/login';}} className={styles.menuButton_login} >Login / Register</button>);
   }
 
   logoutButton () {
-    return (<button onClick={()=> axios.post('/logoutProcess').then((res)=>this.setState({loggedin: false}))} className="float-left submit-button" >logout</button>);
+    return (<button onClick={()=> axios.post('/logoutProcess').then((res)=>this.setState({loggedin: false}))} className={styles.menuButton_logout} >logout</button>);
   }
 
 
   render() {
 
     return (
-      <div>
-        <div>
-          <h4> Menu </h4>
-          { (!this.state.loggedin) ?
-            "Please log-in to use full features" : `Logged in as User "${this.state.username}"`}
+      <div className={styles.flex_stack}>
+        <div className={styles.banner}>
+          <img className={styles.bannerImage} src="https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_011343825.jpg" alt="image"/>
+        </div>
 
-          { (!this.state.loggedin) ?
-            this.loginButton() : this.logoutButton() }
+        <div className={styles.Menu_content}>
+          {/* <h4> Menu </h4> */}
+          <div className={styles.flex_box}>
+            <div className={styles.flex_content}>
+              <button className={styles.menuButton_request}></button>
+            </div>
+            <div className={styles.flex_content}>
+              <button className={styles.menuButton_offer}></button>
+            </div>
+
+            <div className={styles.flex_content}>
+              <button className={styles.menuButton_account}></button>
+            </div>
+
+            <div className={styles.flex_content}>
+              { (!this.state.loggedin) ?
+              this.loginButton() : this.logoutButton() }
+            </div>
+
+          </div>
+          <div className={styles.flex_content} >
+            { (!this.state.loggedin) ?
+            "Please log-in to use full features" : `Logged in as User "${this.state.username}"`}
+          </div>
         </div>
         <RequestList userInfo={this.state}/>
       </div>

@@ -75,3 +75,19 @@
   overflow: hidden;
   box-sizing: border-box;
 }
+
+
+
+.span_NoInfo {
+  font: inherit;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.menuButton_post {
+  width:120px;
+  height:60px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_005746790_01.jpg");
+}

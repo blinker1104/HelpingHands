@@ -37,7 +37,6 @@ class NewRequestForm extends React.Component {
 
 
   handleOpenModal () {
-    console.log('hello');
     this.setState({ showModal: true });
   }
 
@@ -66,7 +65,7 @@ class NewRequestForm extends React.Component {
       body : this.state.body,
       contact : this.state.contact,
       location : this.state.location,
-      radius : this.state.radius
+      radius : parseInt(this.state.radius)
     }
     axios.post('/newRequest', { newForm })
       .then( (res) => {
@@ -94,9 +93,9 @@ class NewRequestForm extends React.Component {
 
   render () {
     return (
-      <div>
+      <div  className={styles.flex_content}>
         { (this.props.userInfo.loggedin) ?
-          <button onClick={this.handleOpenModal}>New Post</button> : ''
+          <button className={styles.menuButton_post} onClick={this.handleOpenModal}></button> : ''
         }
 
 
@@ -198,7 +197,7 @@ const RequestItem = (props =[]) => {
       const newDate = moment(timestamp).format('MMMM Do YYYY');
 
       return (
-        <div className={post_box}>
+        <div className={styles.post_box} onClick={() => props.onRequestClick(req)}>
           <span><h3> {req.title} </h3> <h5>{req.author}</h5> </span>
           <span><h4>{req.location}</h4> <h5>{newDate}</h5></span>
         </div>
@@ -214,37 +213,140 @@ const RequestItem = (props =[]) => {
 }
 
 
+
+const RequestView = (props=[]) => {
+  const reqInfo = props.reqInfo;
+
+  console.log(reqInfo);
+  return (
+    <div>
+      <div className="flex_stack">
+        <div className="flex_box">
+          <label> <h3>Title</h3> </label>
+        </div>
+        <div className="flex_box">
+          <p>
+            { (reqInfo.title) ? reqInfo.title : <span className={styles.span_NoInfo}>Info Unavailable</span>}
+          </p>
+        </div>
+
+        <div className="flex_box">
+          <label> <h3> Content </h3> </label>
+        </div>
+        <div className="flex_box">
+          <p>
+            { (reqInfo.body) ? reqInfo.body : <span className={styles.span_NoInfo}>Info Unavailable</span>}
+          </p>
+        </div>
+
+        <div className="flex_box">
+          <label> <h3> Contact Info. </h3> </label>
+        </div>
+        <div className="flex_box">
+          <p>
+            { (reqInfo.contact) ? reqInfo.contact : <span className={styles.span_NoInfo}>Info Unavailable</span>}
+          </p>
+        </div>
+
+
+
+        <div className="flex_box">
+          <label> <h3> Location (Optional) </h3> </label>
+        </div>
+        <div className="flex_box">
+          <p>
+            { (reqInfo.location) ? reqInfo.location : <span className={styles.span_NoInfo}>Info Unavailable</span>}
+          </p>
+        </div>
+
+        <div className="flex_box">
+          <label> <h3> Searchable radius (approx. area) </h3> </label>
+        </div>
+
+        <div className="flex_box">
+          <p>
+            { (reqInfo.radius === 0) ? "Specific Location Only" : "" }
+            { (reqInfo.radius === 1000) ? "remote available" : "" }
+            { (reqInfo.radius > 0 && reqInfo.radius < 1000) ? `within ${reqInfo.radius} miles` : "" }
+            { (!reqInfo.radius) ? <span className={styles.span_NoInfo}>Info Unavailable</span> : "" }
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 class RequestList extends React.Component {
   constructor(props) {
     super(props);
+    this._isMounted = false;
+    // this._isLoaded = false;
     this.state = {
-      requests: []
+      showModal: false,
+      requests: [],
+      displayRequest: {}
      };
+     this.handleOpenModal = this.handleOpenModal.bind(this);
+     this.handleCloseModal = this.handleCloseModal.bind(this);
      this.updateList = this.updateList.bind(this);
+     this.displayRequest = this.displayRequest.bind(this);
   }
 
   componentDidMount() {
-    this.updateList();
+    this._isMounted = true;
+    this._isMounted && this.updateList();
+
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   updateList () {
     axios.get('/getAllRequests')
     .then( (result) => {
       this.setState({
-        requests : result.data.requests
+        requests : result.data.requests,
+        _isLoaded : true
       });
     })
     .catch();
   }
 
+  displayRequest(info){
+    this.state._isLoaded && this.setState({
+      showModal: true,
+      displayRequest: info
+    });
+  }
+
+
+  handleOpenModal () {
+    this.state._isLoaded && this.setState({ showModal: true });
+  }
+
+  handleCloseModal () {
+    this._isLoaded && this.setState({ showModal: false });
+  }
 
   render() {
     return (
       <div id='RequestPosts'>
-        <h4> Post </h4>
+        {/* <h4> Post </h4> */}
         {/* <button onClick={()=>console.log('new post')}> New Post </button> */}
-        <NewRequestForm userInfo = {this.props.userInfo} updateFunc={this.updateList} />
-        <RequestItem className={post_box} requests={this.state.requests} />
+        <NewRequestForm  userInfo = {this.props.userInfo} updateFunc={this.updateList} />
+        { (this.state._isLoaded) ? <RequestItem className={styles.post_box} requests={this.state.requests}  onRequestClick ={this.displayRequest}/> : 'Loading...'}
+
+
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Display Request Post">
+
+          <RequestView reqInfo={this.state.displayRequest} />
+
+          <button onClick={this.handleCloseModal}>Close</button>
+
+        </ReactModal>
       </div>
     );
   }

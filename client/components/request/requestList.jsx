@@ -56,24 +56,36 @@ class NewRequestForm extends React.Component {
     else if(name === 'contact') { this.setState({ 'contact' : value }); }
     else if(name === 'location') { this.setState({ 'location' : value }); }
     else if(name === 'radius') { this.setState({ 'radius' : value }); }
-    console.log('new request form - update: ', name, value);
+    // console.log('new request form - update: ', name, value);
   }
 
   handleSubmit(event) {
-    const loginInfo = {
-      username: this.props.userInfo.username
+    const newForm = {
+      username: this.props.userInfo.username,
+      title : this.state.title,
+      body : this.state.body,
+      contact : this.state.contact,
+      location : this.state.location,
+      radius : this.state.radius
     }
-    axios.post('/loginProcess', { newForm: this.state })
+    axios.post('/newRequest', { newForm })
       .then( (res) => {
-        console.log('Login Completed', res);
+        console.log('Posting NEW REQUEST Completed', res);
 
-        if (res.data === 'success') {
-          this.state.warningMsg = '';
-          window.location = '/';
+        if (res.data.status) {
+          this.setState({
+            showModal: false,
+            title:'',
+            body:'',
+            contact:'',
+            location:'',
+            radius:'1000'
+          });
+          this.props.updateFunc();
         }
       })
       .catch( (res) => {
-        this.setState({warningMsg : 'Login Attemp Failed' });
+        this.setState({warningMsg : 'Posting Failed' });
       });
     event.preventDefault();
   }
@@ -208,19 +220,22 @@ class RequestList extends React.Component {
     this.state = {
       requests: []
      };
+     this.updateList = this.updateList.bind(this);
   }
 
   componentDidMount() {
-    axios.get('/getAllRequests')
-      .then( (result) => {
-        this.setState({
-          requests : result.data.requests
-        });
-      })
-      .catch();
+    this.updateList();
   }
 
-
+  updateList () {
+    axios.get('/getAllRequests')
+    .then( (result) => {
+      this.setState({
+        requests : result.data.requests
+      });
+    })
+    .catch();
+  }
 
 
   render() {
@@ -228,7 +243,7 @@ class RequestList extends React.Component {
       <div id='RequestPosts'>
         <h4> Post </h4>
         {/* <button onClick={()=>console.log('new post')}> New Post </button> */}
-        <NewRequestForm userInfo = {this.props.userInfo}/>
+        <NewRequestForm userInfo = {this.props.userInfo} updateFunc={this.updateList} />
         <RequestItem className={post_box} requests={this.state.requests} />
       </div>
     );

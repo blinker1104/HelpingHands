@@ -3,11 +3,20 @@ const ReqModel = require('../models/request.js');
 
 
 const getAllRequest = (callback) => {
-  ReqModel.find({}, (err, requests) => {
-    const status = !(requests === null);
-    console.log('All Requests found');
-    callback(err, {status, requests});
-  });
+  // ReqModel.find({}, (err, requests) => {
+  //   const status = !(requests === null);
+  //   console.log('All Requests found');
+  //   callback(err, {status, requests});
+  // });
+  ReqModel.find({})
+    .sort({date:'desc'})
+    .limit(20)
+    .then((requests) => {
+      const status = !(requests === null);
+      console.log('All Requests found', requests);
+      callback(null, {status, requests});
+    })
+    .catch((err) => callback(err, {status:false, requests:[]}));
 };
 
 const newRequest = (reqInfo, callback) => {

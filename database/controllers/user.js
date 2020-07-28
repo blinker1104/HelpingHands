@@ -35,7 +35,8 @@ const LoginProcess = (loginAttempt, callback) => {
   // console.log(' Checking User Credential :', loginAttempt);
 
   User.findOne({ username : loginAttempt.username }, (err, data) => {
-    if (data.password !== loginAttempt.password) {
+    if(!data)callback(err, {status:false, data:data});
+    else if (data.password !== loginAttempt.password) {
       // console.log(`LOGIN FAILED: ${loginAttempt.username} ${loginAttempt.password}`);
       callback(err, {status:false, data:data});
     } else {

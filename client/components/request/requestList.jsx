@@ -326,7 +326,7 @@ class RequestList extends React.Component {
   }
 
   handleCloseModal () {
-    this._isLoaded && this.setState({ showModal: false });
+    this.state._isLoaded && this.setState({ showModal: false });
   }
 
   render() {

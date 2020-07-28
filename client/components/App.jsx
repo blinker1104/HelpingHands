@@ -36,20 +36,21 @@ class App extends React.Component {
 
 
   loginButton () {
-    return (<button onClick={()=>{location.href = '/login';}} className={styles.menuButton_login} >Login / Register</button>);
+    return (<button onClick={()=>{location.href = '/login';}} className={styles.menuButton_login} ></button>);
   }
 
   logoutButton () {
-    return (<button onClick={()=> axios.post('/logoutProcess').then((res)=>this.setState({loggedin: false}))} className={styles.menuButton_logout} >logout</button>);
+    return (<button onClick={()=> axios.post('/logoutProcess').then((res)=>this.setState({loggedin: false}))} className={styles.menuButton_logout} ></button>);
   }
 
 
   render() {
 
     return (
-      <div className={styles.flex_stack}>
+      <div className={`${styles.flex_stack} ${styles.body}`}>
         <div className={styles.banner}>
-          <img className={styles.bannerImage} src="https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_011343825.jpg" alt="image"/>
+          {/* <img className={styles.bannerImage} src="https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_011343825.jpg" alt="image"/> */}
+          <img className={styles.bannerImage} src="https://helpinghands.s3.us-east-2.amazonaws.com/KakaoTalk_20200728_074052399.png" alt="image"/>
         </div>
 
         <div className={styles.Menu_content}>
@@ -66,6 +67,16 @@ class App extends React.Component {
               <button className={styles.menuButton_account}></button>
             </div>
 
+
+            <div className={styles.flex_empty}>
+              <div className={styles.menuButton_empty}>
+                <span className={styles.userDisplay}>
+                  { (!this.state.loggedin) ?
+                    "Please log-in to use full features" : `Username "${this.state.username}"`}
+                </span>
+              </div>
+            </div>
+
             <div className={styles.flex_content}>
               { (!this.state.loggedin) ?
               this.loginButton() : this.logoutButton() }
@@ -73,8 +84,7 @@ class App extends React.Component {
 
           </div>
           <div className={styles.flex_content} >
-            { (!this.state.loggedin) ?
-            "Please log-in to use full features" : `Logged in as User "${this.state.username}"`}
+
           </div>
         </div>
         <RequestList userInfo={this.state}/>

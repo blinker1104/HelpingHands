@@ -75,10 +75,10 @@ class LoginForm extends React.Component {
           </ul>
         </form>
         <p>
-          If you do not have an account, <br/>
+          <h4>If you do not have an account, <br/>
           please register a new account <br/>
           <button onClick={()=>this.props.changeView()}>Registration</button>
-
+          </h4>
         </p>
       </div>
     );
